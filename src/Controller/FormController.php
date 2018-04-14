@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FormController extends AbstractController
 {
     /**
-     * @Route("/", name="app_homepage")
+     * @Route("/avis", name="app_homepage")
      */
     public function homepage()
     {
