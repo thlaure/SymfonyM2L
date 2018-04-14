@@ -8,6 +8,14 @@ Membres de l'équipe :
 * Mehdi BENBAHRI
 * Thomas LAURE
 
+### Getting started
+Pour lancer l'application :
+1. Ouvrir Powershell
+2. Se déplacer à la racine du projet à l'aide de la commnde *__cd__*
+3. Une fois à la racine, lancer la commande suivante : *__php ./bin/console server:run__*
+4. Attendre que le message *__[OK] Server listening on http://127.0.0.1:8000__* s'affiche
+5. Aller dans votre navigateur et saisir l'URL suivante : *__localhost:8000/avis__*
+6. Le formulaire devrait s'afficher !
 
 ### Présentation de l'application web
 __Existant :__  
