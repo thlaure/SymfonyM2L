@@ -29,25 +29,41 @@ class Atelier
     private $nbPlacesMaxi;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Statistique", mappedBy="atelier")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Avis")
      */
-    private $statistiques;
+    private $avis;
 
+    /**
+     * Atelier constructor.
+     */
     public function __construct()
     {
-        $this->statistiques = new ArrayCollection();
+        $this->avis = new ArrayCollection();
     }
 
+    /**
+     * Accesseur de l'ID de l'atelier.
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * Accesseur du libellé de l'atelier.
+     * @return null|string
+     */
     public function getLibelleAtelier(): ?string
     {
         return $this->libelleAtelier;
     }
 
+    /**
+     * Mutateur du libellé de l'atelier.
+     * @param string $libelleAtelier
+     * @return Atelier
+     */
     public function setLibelleAtelier(string $libelleAtelier): self
     {
         $this->libelleAtelier = $libelleAtelier;
@@ -55,11 +71,20 @@ class Atelier
         return $this;
     }
 
+    /**
+     * Accesseur du nombre de places maximum dans l'atelier.
+     * @return int|null
+     */
     public function getNbPlacesMaxi(): ?int
     {
         return $this->nbPlacesMaxi;
     }
 
+    /**
+     * Mutateur du nombre de places maximum dans l'atelier.
+     * @param int $nbPlacesMaxi
+     * @return Atelier
+     */
     public function setNbPlacesMaxi(int $nbPlacesMaxi): self
     {
         $this->nbPlacesMaxi = $nbPlacesMaxi;
@@ -68,31 +93,37 @@ class Atelier
     }
 
     /**
-     * @return Collection|Statistique[]
+     * Accesseur des avis laissés sur l'atelier.
+     * @return Collection|Avis[]
      */
-    public function getStatistiques(): Collection
+    public function getAvis(): Collection
     {
-        return $this->statistiques;
+        return $this->avis;
     }
 
-    public function addStatistique(Statistique $statistique): self
+    /**
+     * Ajout d'un avis sur l'atelier.
+     * @param Avis $avis
+     * @return Atelier
+     */
+    public function addAvi(Avis $avis): self
     {
-        if (!$this->statistiques->contains($statistique)) {
-            $this->statistiques[] = $statistique;
-            $statistique->setAtelier($this);
+        if (!$this->avis->contains($avis)) {
+            $this->avis[] = $avis;
         }
 
         return $this;
     }
 
-    public function removeStatistique(Statistique $statistique): self
+    /**
+     * Suppression d'un avis sur l'atelier.
+     * @param Avis $avis
+     * @return Atelier
+     */
+    public function removeAvi(Avis $avis): self
     {
-        if ($this->statistiques->contains($statistique)) {
-            $this->statistiques->removeElement($statistique);
-            // set the owning side to null (unless already changed)
-            if ($statistique->getAtelier() === $this) {
-                $statistique->setAtelier(null);
-            }
+        if ($this->avis->contains($avis)) {
+            $this->avis->removeElement($avis);
         }
 
         return $this;
