@@ -106,7 +106,7 @@ class Atelier
      * @param Avis $avis
      * @return Atelier
      */
-    public function addAvi(Avis $avis): self
+    public function addAvis(Avis $avis): self
     {
         if (!$this->avis->contains($avis)) {
             $this->avis[] = $avis;
@@ -120,7 +120,7 @@ class Atelier
      * @param Avis $avis
      * @return Atelier
      */
-    public function removeAvi(Avis $avis): self
+    public function removeAvis(Avis $avis): self
     {
         if ($this->avis->contains($avis)) {
             $this->avis->removeElement($avis);

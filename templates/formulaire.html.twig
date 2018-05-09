@@ -1,72 +1,30 @@
-<!doctype html>
-<html lang="fr-FR">
-<head>
-    <title>{% block title %}Saisie des avis{% endblock %}</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="author" content="BTS SLAM groupe 3" />
-    <link rel="icon" href="{{ asset('images/Mdl.ico') }}" />
-    {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
-        <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" />
-        <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
-    {% endblock %}
-</head>
-<body>
-<div class="container">
-    <article class="icon">
-        <img src="{{ asset('images/Mdl.png') }}" alt="Icône de la M2L" />
-    </article>
-    <section><h1 class="title">Saisie des avis</h1>
-        <br />
-        <article class="warning">
-            <p class="lead"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Seul(e)s les bénévoles sont autorisé(e)s à laisser leur avis.</p>
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <article class="icon">
+            <img src="{{ asset('images/Mdl.png') }}" alt="Icône de la M2L" />
         </article>
-        <article class="col-lg-6"><h3>1) Atelier :</h3>
-            <select class="custom-select">
-                <option>Sélectionnez l'atelier</option>
-            </select>
-            <p class="lead">Nombre d'avis laissés sur l'atelier xxx : ?</p>
-        </article>
-        <br />
-        <article class="col-12 col-sm-4"><h3>2) Votre avis sur l'atelier :</h3>
-            <div class="custom-control custom-radio">
-                <input class="custom-control-input" type="radio" name="RadAvis" id="radTresSatisfait" value="tressatisfait">
-                <label class="custom-control-label" for="radTresSatisfait">
-                    Très satisfait
-                </label>
-            </div>
-            <div class="custom-control custom-radio">
-                <input class="custom-control-input" type="radio" name="RadAvis" id="radSatisfait" value="satisfait">
-                <label class="custom-control-label" for="radSatisfait">
-                    Satisfait
-                </label>
-            </div>
-            <div class="custom-control custom-radio">
-                <input class="custom-control-input" type="radio" name="RadAvis" id="radMoyennementSatisfait" value="moyennementsatisfait">
-                <label class="custom-control-label" for="radMoyennementSatisfait">
-                    Moyennement satisfait
-                </label>
-            </div>
-            <div class="custom-control custom-radio">
-                <input class="custom-control-input" type="radio" name="RadAvis" id="radPasDuToutSatisfait" value="pasdutoutsatisfait">
-                <label class="custom-control-label" for="radPasDuToutSatisfait">
-                    Pas du tout satisfait
-                </label>
-            </div>
-        </article>
-        <br />
-        <article class="button">
-            <button type="submit" class="btn btn-primary">Envoyer</button>
-        </article>
-    </section>
-</div>
-</body>
-{% block javascripts %}
-    <script src="{{ asset('js/jquery-3.3.1.slim.min.js') }}"></script>
-    <script src="{{ asset('js/popper.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <section><h1 class="title">Saisie des avis</h1>
+            <br />
+            {{ form_start(form) }}
+                <article class="col-lg-6"><h3>1) Atelier :</h3>
+                    {{ form_widget(form.listeAteliers, {'attr': {'class': 'custom-select'}}) }}
+                </article>
+                <br />
+                <article class="col-12 col-sm-4"><h3>2) Votre avis sur l'atelier :</h3>
+                    {% for avis in form.listeAvis %}
+                        <div class="custom-control custom-radio">
+                            {{ form_widget(avis, {'attr': {'class': 'custom-control-input'}}) }}
+                            {{ form_label(avis, '', {'label_attr': {'class': 'custom-control-label'}}) }}
+                        </div>
+                    {% endfor %}
+                </article>
+                <br />
+                <article class="button">
+                    {{ form_widget(form.btnEnvoyer, {'attr': {'class': 'btn btn-primary'}}) }}
+                </article>
+            {{ form_end(form) }}
+        </section>
+    </div>
 {% endblock %}
-</html>

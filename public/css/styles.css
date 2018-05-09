@@ -1,24 +1,16 @@
-.icon {
+.icon, .title, .button, .alert-success {
     text-align: center;
-}
-
-.title {
-    text-align: center;
-}
-
-.warning {
-    color: red;
 }
 
 .custom-control {
     margin: auto;
 }
 
-.button {
-    text-align: center;
-}
-
 .btn {
     width: 40%;
     margin-bottom: 10px;
+}
+
+.alert-success {
+    margin: 50px auto;
 }
