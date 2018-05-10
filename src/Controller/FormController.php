@@ -25,13 +25,13 @@ class FormController extends Controller
     public function creerFormulaire()
     {
         return $this->createFormBuilder()
-            ->add('listeAteliers', EntityType::class, array(
+            ->add('atelier', EntityType::class, array(
                 'class' => 'App\Entity\Atelier',
                 'multiple' => false,
                 'choice_label' => 'libelleAtelier',
                 'placeholder' => 'Sélectionnez l\'atelier'
             ))
-            ->add('listeAvis', EntityType::class, array(
+            ->add('avis', EntityType::class, array(
                 'class' => 'App\Entity\Avis',
                 'required' => 'true',
                 'multiple' => false,
@@ -55,13 +55,23 @@ class FormController extends Controller
     {
         $formulaire = $this->creerFormulaire();
         $formulaire->handleRequest($request);
-        if ($request->isMethod('POST') && $formulaire->isSubmitted() && $formulaire->isValid()) {
-            $atelier = $formulaire['listeAteliers']->getData();
-            $avis = $formulaire['listeAvis']->getData();
-            $this->enregistrerAvis($atelier, $avis);
-            return $this->render('check.html.twig');
+        $message = '';
+        $nbAvisAtelier = 0;
+        if ($request->isMethod('POST')) {
+            if ($formulaire->isSubmitted() && $formulaire->isValid()) {
+                $message = '<div class="container"><div class="alert alert-success" role="alert">L\'enregistrement a été validé !</div></div>';
+                $atelier = $formulaire['atelier']->getData();
+                $avis = $formulaire['avis']->getData();
+                $atelier->addAvis($avis);
+                $nbAvisAtelier = $this->recupNbAvisAtelier($atelier->getId());
+                $this->enregistrerAvis($atelier, $avis);
+                return $this->render('formulaire.html.twig', array('nbavis' => $nbAvisAtelier, 'message' => $message, 'form' => $formulaire->createView()));
+            } else {
+                $message = '<div class="container"><div class="alert alert-danger" role="alert">Un problème est survenu lors de l\'enregistrement.</div ></div >';
+                return $this->render('formulaire.html.twig', array('nbavis' => $nbAvisAtelier, 'message' => $message, 'form' => $formulaire->createView()));
+            }
         }
-        return $this->render('formulaire.html.twig', array('form' => $formulaire->createView()));
+        return $this->render('formulaire.html.twig', array('message' => $message, 'nbavis' => $nbAvisAtelier, 'form' => $formulaire->createView()));
     }
 
     /**
@@ -78,30 +88,14 @@ class FormController extends Controller
     }
 
     /**
-     * Retourne l'ID lié au libellé de l'atelier passé en paramètre.
-     * @param $libelleAtelier
-     * @return int
-     */
-    public function recupIdAtelier(string $libelleAtelier) : int
-    {
-        $atelier = $this->getDoctrine()->getRepository(Atelier::class)->findBy(
-            ['libelleAtelier' => $libelleAtelier]
-        );
-        return $atelier[0]->getId();
-    }
-
-    /**
      * Retourne le nombre d'avis laissés sur l'atelier passé en paramètre.
-     * @param $libelleAtelier
-     * @return mixed
+     * @param $idAtelier
+     * @return integer
      */
-    public function recupNbAvisAtelier(string $libelleAtelier)
+    public function recupNbAvisAtelier(int $idAtelier)
     {
-        $idAtelier = $this->recupIdAtelier($libelleAtelier);
-        $atelier = $this->getDoctrine()->getRepository(Atelier::class)->find($idAtelier);
+        $atelier = $this->getDoctrine()->getManager()->getRepository(Atelier::class)->find($idAtelier);
         $nbAvisAtelier = $atelier->getAvis()->count();
-        return $this->render('formulaire.html.twig', [
-            'nbAvisAtelier' => $nbAvisAtelier
-        ]);
+        return $nbAvisAtelier;
     }
 }

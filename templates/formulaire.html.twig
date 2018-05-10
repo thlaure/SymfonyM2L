@@ -8,12 +8,14 @@
         <section><h1 class="title">Saisie des avis</h1>
             <br />
             {{ form_start(form) }}
+                {{ message | raw }}
                 <article class="col-lg-6"><h3>1) Atelier :</h3>
-                    {{ form_widget(form.listeAteliers, {'attr': {'class': 'custom-select'}}) }}
+                    {{ form_widget(form.atelier, {'attr': {'class': 'custom-select'}}) }}
+                    <p class="lead">Nombre d'avis laissés sur cet atelier : {{ nbavis }}</p>
                 </article>
                 <br />
                 <article class="col-12 col-sm-4"><h3>2) Votre avis sur l'atelier :</h3>
-                    {% for avis in form.listeAvis %}
+                    {% for avis in form.avis %}
                         <div class="custom-control custom-radio">
                             {{ form_widget(avis, {'attr': {'class': 'custom-control-input'}}) }}
                             {{ form_label(avis, '', {'label_attr': {'class': 'custom-control-label'}}) }}

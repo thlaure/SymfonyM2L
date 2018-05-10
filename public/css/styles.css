@@ -1,16 +1,8 @@
-.icon, .title, .button, .alert-success {
+.icon, .title, .button, .alert-success, .alert-danger {
     text-align: center;
-}
-
-.custom-control {
-    margin: auto;
 }
 
 .btn {
     width: 40%;
     margin-bottom: 10px;
-}
-
-.alert-success {
-    margin: 50px auto;
 }
