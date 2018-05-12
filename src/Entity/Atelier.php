@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,19 +25,6 @@ class Atelier
      * @ORM\Column(type="integer")
      */
     private $nbPlacesMaxi;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Avis")
-     */
-    private $avis;
-
-    /**
-     * Atelier constructor.
-     */
-    public function __construct()
-    {
-        $this->avis = new ArrayCollection();
-    }
 
     /**
      * Accesseur de l'ID de l'atelier.
@@ -72,7 +57,7 @@ class Atelier
     }
 
     /**
-     * Accesseur du nombre de places maximum dans l'atelier.
+     * Accesseur du nombre de places maximum de l'atelier.
      * @return int|null
      */
     public function getNbPlacesMaxi(): ?int
@@ -81,50 +66,13 @@ class Atelier
     }
 
     /**
-     * Mutateur du nombre de places maximum dans l'atelier.
+     * Mutateur du nombre de places maximum de l'atelier.
      * @param int $nbPlacesMaxi
      * @return Atelier
      */
     public function setNbPlacesMaxi(int $nbPlacesMaxi): self
     {
         $this->nbPlacesMaxi = $nbPlacesMaxi;
-
-        return $this;
-    }
-
-    /**
-     * Accesseur des avis laissés sur l'atelier.
-     * @return Collection|Avis[]
-     */
-    public function getAvis(): Collection
-    {
-        return $this->avis;
-    }
-
-    /**
-     * Ajout d'un avis sur l'atelier.
-     * @param Avis $avis
-     * @return Atelier
-     */
-    public function addAvis(Avis $avis): self
-    {
-        if (!$this->avis->contains($avis)) {
-            $this->avis[] = $avis;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Suppression d'un avis sur l'atelier.
-     * @param Avis $avis
-     * @return Atelier
-     */
-    public function removeAvis(Avis $avis): self
-    {
-        if ($this->avis->contains($avis)) {
-            $this->avis->removeElement($avis);
-        }
 
         return $this;
     }

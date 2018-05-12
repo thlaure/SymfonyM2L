@@ -9,15 +9,61 @@
 namespace App\Controller;
 
 use App\Entity\Atelier;
+use App\Entity\AtelierAvis;
+use App\Entity\Avis;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 class FormController extends Controller
 {
+    /**
+     * Méthode permettant de traiter l'avis laisser par le participant.
+     * @Route("/form", name="formulaire")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function traitementFormulaire(Request $request)
+    {
+        $formulaire = $this->creerFormulaire();
+        $formulaire->handleRequest($request);
+        if ($request->isMethod('POST')) {
+            if ($formulaire->isSubmitted() && $formulaire->isValid()) {
+                $atelier = $formulaire['atelierEntity']->getData();
+                $avis = $formulaire['avisEntity']->getData();
+
+                $existe = $this->verifExistenceAtelierAvis($atelier, $avis);
+                if ($existe == true) {
+                    $atelierAvis = $this->recupLAtelierAvis($atelier, $avis);
+                    $this->updateQuantite($atelierAvis);
+                } else {
+                    $atelierAvis = $this->creerAtelierAvis($atelier, $avis);
+                    $this->enregistrerAtelierAvis($atelierAvis);
+                }
+
+                return $this->render('formulaire.html.twig', array(
+                    'nbAvis' => $this->recupQuantiteAvis($atelier),
+                    'textAlert' => 'L\'enregistrement a été validé !',
+                    'classAlert' => 'alert-success',
+                    'form' => $formulaire->createView()
+                ));
+            } else {
+                return $this->render('formulaire.html.twig', array(
+                    'nbAvis' => 0,
+                    'textAlert' => 'Un problème est survenu lors de l\'enregistrement.',
+                    'classAlert' => 'alert-danger',
+                    'form' => $formulaire->createView()
+                ));
+            }
+        }
+        return $this->render('formulaire.html.twig', array(
+            'nbAvis' => 0,
+            'form' => $formulaire->createView()
+        ));
+    }
+
     /**
      * Méthode permettant de créer le formulaire.
      * @return \Symfony\Component\Form\FormInterface
@@ -25,13 +71,13 @@ class FormController extends Controller
     public function creerFormulaire()
     {
         return $this->createFormBuilder()
-            ->add('atelier', EntityType::class, array(
+            ->add('atelierEntity', EntityType::class, array(
                 'class' => 'App\Entity\Atelier',
                 'multiple' => false,
                 'choice_label' => 'libelleAtelier',
                 'placeholder' => 'Sélectionnez l\'atelier'
             ))
-            ->add('avis', EntityType::class, array(
+            ->add('avisEntity', EntityType::class, array(
                 'class' => 'App\Entity\Avis',
                 'required' => 'true',
                 'multiple' => false,
@@ -46,56 +92,92 @@ class FormController extends Controller
     }
 
     /**
-     * Méthode permettant de traiter l'avis laisser par le participant.
-     * @Route("/form", name="formulaire")
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function traitementFormulaire(Request $request)
-    {
-        $formulaire = $this->creerFormulaire();
-        $formulaire->handleRequest($request);
-        $message = '';
-        $nbAvisAtelier = 0;
-        if ($request->isMethod('POST')) {
-            if ($formulaire->isSubmitted() && $formulaire->isValid()) {
-                $message = '<div class="container"><div class="alert alert-success" role="alert">L\'enregistrement a été validé !</div></div>';
-                $atelier = $formulaire['atelier']->getData();
-                $avis = $formulaire['avis']->getData();
-                $atelier->addAvis($avis);
-                $nbAvisAtelier = $this->recupNbAvisAtelier($atelier->getId());
-                $this->enregistrerAvis($atelier, $avis);
-                return $this->render('formulaire.html.twig', array('nbavis' => $nbAvisAtelier, 'message' => $message, 'form' => $formulaire->createView()));
-            } else {
-                $message = '<div class="container"><div class="alert alert-danger" role="alert">Un problème est survenu lors de l\'enregistrement.</div ></div >';
-                return $this->render('formulaire.html.twig', array('nbavis' => $nbAvisAtelier, 'message' => $message, 'form' => $formulaire->createView()));
-            }
-        }
-        return $this->render('formulaire.html.twig', array('message' => $message, 'nbavis' => $nbAvisAtelier, 'form' => $formulaire->createView()));
-    }
-
-    /**
      * Méthode permettant de faire persister en base de données l'avis d'un bénévole sur un atelier.
-     * @param $atelier
-     * @param $avis
+     * @param AtelierAvis $atelierAvis
      */
-    public function enregistrerAvis($atelier, $avis)
+    public function enregistrerAtelierAvis($atelierAvis)
     {
-        $atelier->addAvis($avis);
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($atelier);
+        $entityManager->persist($atelierAvis);
         $entityManager->flush();
     }
 
     /**
-     * Retourne le nombre d'avis laissés sur l'atelier passé en paramètre.
-     * @param $idAtelier
-     * @return integer
+     * Méthode qui va récupérer une liste d'objets AtelierAvis
+     * en fonction d'un atelier passé en paramètre,
+     * et parcourir cette liste pour additionner toutes les quantités.
+     * @param Atelier $atelier
+     * @return int|null
      */
-    public function recupNbAvisAtelier(int $idAtelier)
+    public function recupQuantiteAvis($atelier) : ?int
     {
-        $atelier = $this->getDoctrine()->getManager()->getRepository(Atelier::class)->find($idAtelier);
-        $nbAvisAtelier = $atelier->getAvis()->count();
+        $repository = $this->getDoctrine()->getRepository(AtelierAvis::class);
+        $result = $repository->findBy(array(
+            'atelier' => $atelier
+        ));
+        $nbAvisAtelier = 0;
+        foreach ($result as $lAtelierAvis) {
+            $nbAvisAtelier += $lAtelierAvis->getQuantite();
+        }
         return $nbAvisAtelier;
+    }
+
+    /**
+     * Méthode qui vérifie l'existence en base de données de l'AtelierAvis
+     * possédant l'Atelier et l'Avis passés en paramètres.
+     * Retourne Vrai si l'AtelierAvis existe.
+     * @param Atelier $atelier
+     * @param Avis $avis
+     * @return bool|null
+     */
+    public function verifExistenceAtelierAvis($atelier, $avis) : ?bool
+    {
+        $repository = $this->getDoctrine()->getRepository(AtelierAvis::class);
+        $result = $repository->findOneBy(array(
+            'atelier' => $atelier,
+            'avis' => $avis
+        ));
+        return $result != null;
+    }
+
+    /**
+     * Méthode permettant de mettre à jour la quantité d'un AtelierAvis déjà existant.
+     * @param AtelierAvis $atelierAvis
+     */
+    public function updateQuantite($atelierAvis)
+    {
+        $atelierAvis->setQuantite($atelierAvis->getQuantite() + 1);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+    }
+
+    /**
+     * Récupère l'enregistrement de la table atelier_avis qui contient l'atelier et l'avis passés en paramètres.
+     * @param Atelier $atelier
+     * @param Avis $avis
+     * @return AtelierAvis|null|object
+     */
+    public function recupLAtelierAvis($atelier, $avis) : ?AtelierAvis
+    {
+        $repository = $this->getDoctrine()->getRepository(AtelierAvis::class);
+        return $repository->findOneBy(array(
+            'atelier' => $atelier,
+            'avis' => $avis
+        ));
+    }
+
+    /**
+     * Méthode permettant de créer un objet AtelierAvis.
+     * @param Atelier $atelier
+     * @param Avis $avis
+     * @return AtelierAvis
+     */
+    public function creerAtelierAvis($atelier, $avis)
+    {
+        $atelierAvis = new AtelierAvis();
+        $atelierAvis->setAtelier($atelier);
+        $atelierAvis->setAvis($avis);
+        $atelierAvis->setQuantite(1);
+        return $atelierAvis;
     }
 }

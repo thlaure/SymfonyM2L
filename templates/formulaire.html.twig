@@ -8,14 +8,16 @@
         <section><h1 class="title">Saisie des avis</h1>
             <br />
             {{ form_start(form) }}
-                {{ message | raw }}
+                {% if textAlert is defined and classAlert is defined %}
+                    <div class="alert {{ classAlert }}" role="alert">{{ textAlert }}</div>
+                {% endif %}
                 <article class="col-lg-6"><h3>1) Atelier :</h3>
-                    {{ form_widget(form.atelier, {'attr': {'class': 'custom-select'}}) }}
-                    <p class="lead">Nombre d'avis laissés sur cet atelier : {{ nbavis }}</p>
+                    {{ form_widget(form.atelierEntity, {'attr': {'class': 'custom-select'}}) }}
+                    <p class="lead">Nombre d'avis laissés sur cet atelier : <span class="nb-avis">{{ nbAvis }}</span></p>
                 </article>
                 <br />
                 <article class="col-12 col-sm-4"><h3>2) Votre avis sur l'atelier :</h3>
-                    {% for avis in form.avis %}
+                    {% for avis in form.avisEntity %}
                         <div class="custom-control custom-radio">
                             {{ form_widget(avis, {'attr': {'class': 'custom-control-input'}}) }}
                             {{ form_label(avis, '', {'label_attr': {'class': 'custom-control-label'}}) }}
@@ -29,4 +31,9 @@
             {{ form_end(form) }}
         </section>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/ajaxNbAvis.js') }}"></script>
 {% endblock %}
