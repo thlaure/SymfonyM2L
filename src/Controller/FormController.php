@@ -150,12 +150,19 @@ class FormController extends Controller
     /**
      * Méthode permettant de mettre à jour la quantité d'un AtelierAvis déjà existant.
      * @param AtelierAvis $atelierAvis
+     * @return Response
      */
     public function updateQuantite($atelierAvis)
     {
-        $atelierAvis->setQuantite($atelierAvis->getQuantite() + 1);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->flush();
+        if ($atelierAvis->getQuantite() > 0) {
+            $atelierAvis->setQuantite($atelierAvis->getQuantite() + 1);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+        } else {
+            return $this->render('error.html.twig', array(
+                'errorMessage' => 'Une erreur est survenue dans la gestion du nombre d\'avis laissés sur cet atelier. Veuillez contactez le service informatique.'
+            ));
+        }
     }
 
     /**
