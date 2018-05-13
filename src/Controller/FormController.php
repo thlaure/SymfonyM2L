@@ -15,6 +15,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class FormController extends Controller
@@ -25,7 +26,7 @@ class FormController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function traitementFormulaire(Request $request)
+    public function traitementFormulaire(Request $request) : ?Response
     {
         $formulaire = $this->creerFormulaire();
         $formulaire->handleRequest($request);
@@ -107,9 +108,9 @@ class FormController extends Controller
      * en fonction d'un atelier passé en paramètre,
      * et parcourir cette liste pour additionner toutes les quantités.
      * @param Atelier $atelier
-     * @return int|null
+     * @return int|null|Response
      */
-    public function recupQuantiteAvis($atelier) : ?int
+    public function recupQuantiteAvis($atelier)
     {
         $repository = $this->getDoctrine()->getRepository(AtelierAvis::class);
         $result = $repository->findBy(array(
@@ -119,7 +120,13 @@ class FormController extends Controller
         foreach ($result as $lAtelierAvis) {
             $nbAvisAtelier += $lAtelierAvis->getQuantite();
         }
-        return $nbAvisAtelier;
+        if ($nbAvisAtelier < 0) {
+            return $this->render('error.html.twig', array(
+                'errorMessage' => 'Une erreur est survenue dans la gestion du nombre d\'avis laissés sur cet atelier. Veuillez contactez le service informatique.'
+            ));
+        } else {
+            return $nbAvisAtelier;
+        }
     }
 
     /**
@@ -172,7 +179,7 @@ class FormController extends Controller
      * @param Avis $avis
      * @return AtelierAvis
      */
-    public function creerAtelierAvis($atelier, $avis)
+    public function creerAtelierAvis($atelier, $avis) : ?AtelierAvis
     {
         $atelierAvis = new AtelierAvis();
         $atelierAvis->setAtelier($atelier);
