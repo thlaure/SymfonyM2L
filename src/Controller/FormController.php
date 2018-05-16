@@ -22,7 +22,7 @@ class FormController extends Controller
 {
     /**
      * Méthode permettant de traiter l'avis laisser par le participant.
-     * @Route("/form", name="formulaire")
+     * @Route("/", name="formulaire")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -46,6 +46,7 @@ class FormController extends Controller
 
                 return $this->render('formulaire.html.twig', array(
                     'nbAvis' => $this->recupQuantiteAvis($atelier),
+                    'nomAtelier' => $atelier->getLibelleAtelier(),
                     'textAlert' => 'L\'enregistrement a été validé !',
                     'classAlert' => 'alert-success',
                     'form' => $formulaire->createView()
@@ -53,6 +54,7 @@ class FormController extends Controller
             } else {
                 return $this->render('formulaire.html.twig', array(
                     'nbAvis' => 0,
+                    'nomAtelier' => '',
                     'textAlert' => 'Un problème est survenu lors de l\'enregistrement.',
                     'classAlert' => 'alert-danger',
                     'form' => $formulaire->createView()
@@ -61,6 +63,7 @@ class FormController extends Controller
         }
         return $this->render('formulaire.html.twig', array(
             'nbAvis' => 0,
+            'nomAtelier' => '',
             'form' => $formulaire->createView()
         ));
     }
