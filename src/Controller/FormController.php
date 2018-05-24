@@ -49,10 +49,20 @@ class FormController extends Controller
                 // Contrôles nécessaires avant d'enregistrer
                 // un avis en base de données.
                 $existe = $this->verifExistenceAtelierAvis($atelier, $avis);
-                if ($existe == true
-                    && $this->verifNbPlacesSuperieurQuantiteAvis($atelier)
-                ) {
+                if ($existe && $this->verifNbPlacesSuperieurQuantiteAvis($atelier)) {
                     $this->updateQuantite($atelier, $avis);
+                } elseif (!$this->verifNbPlacesSuperieurQuantiteAvis($atelier)) {
+                    return $this->render(
+                        'error.html.twig',
+                        array(
+                            'nbAvis' => 0,
+                            'nomAtelier' => '',
+                            'textAlert' => 'La quantité d\'avis laissés sur 
+                                l\'atelier excède le nombre disponible de places.',
+                            'classAlert' => 'alert-danger',
+                            'form' => $formulaire->createView()
+                        )
+                    );
                 } else {
                     $this->enregistrerAtelierAvis($atelier, $avis);
                 }
@@ -71,7 +81,8 @@ class FormController extends Controller
                     array(
                         'nbAvis' => 0,
                         'nomAtelier' => '',
-                        'textAlert' => 'Un problème est survenu lors de l\'enregistrement.',
+                        'textAlert' => 'Un problème est survenu lors de 
+                            l\'enregistrement.',
                         'classAlert' => 'alert-danger',
                         'form' => $formulaire->createView()
                     )
@@ -163,7 +174,9 @@ class FormController extends Controller
             return $this->render(
                 'error.html.twig',
                 array(
-                    'errorMessage' => 'Une erreur est survenue dans la gestion du nombre d\'avis laissés sur cet atelier. Veuillez contactez le service informatique.'
+                    'errorMessage' => 'Une erreur est survenue dans
+                    la gestion du nombre d\'avis laissés sur cet atelier.
+                    Veuillez contactez le service informatique.'
                 )
             );
         } else {
@@ -213,7 +226,9 @@ class FormController extends Controller
             return $this->render(
                 'error.html.twig',
                 array(
-                    'errorMessage' => 'Une erreur est survenue dans la gestion du nombre d\'avis laissés sur cet atelier. Veuillez contactez le service informatique.'
+                    'errorMessage' => 'Une erreur est survenue dans 
+                    la gestion du nombre d\'avis laissés sur cet atelier.
+                    Veuillez contactez le service informatique.'
                 )
             );
         }

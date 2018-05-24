@@ -5,20 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="297a15a9-6a46-46a5-879a-6cf334b718db" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/MaisonDesLigues.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MaisonDesLigues.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/documentation/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/documentation/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/FormController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FormController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Atelier.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Atelier.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/AtelierAvis.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/AtelierAvis.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Avis.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Avis.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/AtelierAvisRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/AtelierAvisRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/AtelierRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/AtelierRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/AvisRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/AvisRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,27 +34,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="FormController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FormController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Controller/FormController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="127" column="31" selection-start-line="127" selection-start-column="31" selection-end-line="127" selection-end-column="67" />
+            <state relative-caret-position="-1539">
+              <caret line="146" column="43" selection-start-line="146" selection-start-column="32" selection-end-line="146" selection-end-column="43" />
               <folding>
-                <element signature="e#1709#1731#0#PHP" expanded="true" />
+                <element signature="e#1950#1967#0#PHP" expanded="true" />
+                <element signature="e#2522#2544#0#PHP" expanded="true" />
                 <element signature="e#2133#2155#0#PHP" expanded="true" />
-                <element signature="e#2509#2531#0#PHP" expanded="true" />
-                <element signature="e#4760#4777#0#PHP" expanded="true" />
-                <element signature="e#6207#6224#0#PHP" expanded="true" />
+                <element signature="e#3039#3061#0#PHP" expanded="true" />
+                <element signature="e#5688#5705#0#PHP" expanded="true" />
+                <element signature="e#7456#7473#0#PHP" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/documentation/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="436" column="93" selection-start-line="436" selection-start-column="93" selection-end-line="436" selection-end-column="93" />
             </state>
           </provider>
         </entry>
@@ -110,7 +90,6 @@
         <option value="$PROJECT_DIR$/templates/error.html.twig" />
         <option value="$PROJECT_DIR$/templates/formulaire.html.twig" />
         <option value="$PROJECT_DIR$/templates/base.html.twig" />
-        <option value="$PROJECT_DIR$/tests/FormControllerTest.php" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/src/Repository/AtelierAvisRepository.php" />
@@ -119,8 +98,9 @@
         <option value="$PROJECT_DIR$/src/Entity/AtelierAvis.php" />
         <option value="$PROJECT_DIR$/src/Entity/Atelier.php" />
         <option value="$PROJECT_DIR$/src/Entity/Avis.php" />
-        <option value="$PROJECT_DIR$/src/Controller/FormController.php" />
         <option value="$PROJECT_DIR$/public/documentation/index.html" />
+        <option value="$PROJECT_DIR$/src/Controller/FormController.php" />
+        <option value="$PROJECT_DIR$/tests/FormControllerTest.php" />
       </list>
     </option>
   </component>
@@ -261,10 +241,9 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="368" />
-    <option name="y" value="-8" />
-    <option name="width" value="1089" />
-    <option name="height" value="722" />
+    <option name="x" value="723" />
+    <option name="width" value="1204" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -291,12 +270,6 @@
             <path>
               <item name="SymfonyM2L" type="b2602c69:ProjectViewProjectNode" />
               <item name="SymfonyM2L" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="documentation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SymfonyM2L" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SymfonyM2L" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -308,14 +281,12 @@
             <path>
               <item name="SymfonyM2L" type="b2602c69:ProjectViewProjectNode" />
               <item name="SymfonyM2L" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SymfonyM2L" type="b2602c69:ProjectViewProjectNode" />
               <item name="SymfonyM2L" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Repository" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -479,7 +450,7 @@
       <workItem from="1527141833959" duration="1663000" />
       <workItem from="1527148666196" duration="523000" />
       <workItem from="1527153893573" duration="600000" />
-      <workItem from="1527156560864" duration="7290000" />
+      <workItem from="1527156560864" duration="11746000" />
     </task>
     <task id="LOCAL-00001" summary="Enregistrement des avis -&gt; OK.&#10;- Optimisation du fichier CSS&#10;- Mise à jour des dépendances">
       <created>1525898136713</created>
@@ -509,11 +480,18 @@
       <option name="project" value="LOCAL" />
       <updated>1526499173635</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Application des normes PhpCodeSniffer, sauf aux endroits qui casseraient tout.">
+      <created>1527167458137</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1527167458137</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="180512000" />
+    <option name="totallyTimeSpent" value="184968000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -530,7 +508,7 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.32890365" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.4989339" weight="0.24695459" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18763326" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1652452" />
       <window_info anchor="right" id="Database" order="5" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="UI Designer" order="3" />
@@ -588,7 +566,8 @@
     <MESSAGE value="Ajout de la page de validation de l'envoi du formulaire." />
     <MESSAGE value="Ajout du message de réussite et d'erreur sur le formulaire.&#10;- Début du développement de l'affichage du nombre d'avos laissés sur l'atelier." />
     <MESSAGE value="Affichage du nom de l'atelier en face du nombre d'avis laissés sur le formulaire." />
-    <option name="LAST_COMMIT_MESSAGE" value="Affichage du nom de l'atelier en face du nombre d'avis laissés sur le formulaire." />
+    <MESSAGE value="Application des normes PhpCodeSniffer, sauf aux endroits qui casseraient tout." />
+    <option name="LAST_COMMIT_MESSAGE" value="Application des normes PhpCodeSniffer, sauf aux endroits qui casseraient tout." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -795,14 +774,6 @@
         <state relative-caret-position="-837" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/formulaire.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="17" column="22" lean-forward="true" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/FormControllerTest.php" />
     <entry file="file://$PROJECT_DIR$/src/Migrations/Version20180511171010.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-302" />
@@ -912,24 +883,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/FormController.php">
+    <entry file="file://$PROJECT_DIR$/public/documentation/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="127" column="31" selection-start-line="127" selection-start-column="31" selection-end-line="127" selection-end-column="67" />
+        <state relative-caret-position="8505">
+          <caret line="315" column="67" selection-start-line="315" selection-start-column="53" selection-end-line="315" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/formulaire.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/FormControllerTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="729">
+          <caret line="47" column="20" lean-forward="true" selection-start-line="47" selection-start-column="20" selection-end-line="47" selection-end-column="20" />
           <folding>
-            <element signature="e#1709#1731#0#PHP" expanded="true" />
-            <element signature="e#2133#2155#0#PHP" expanded="true" />
-            <element signature="e#2509#2531#0#PHP" expanded="true" />
-            <element signature="e#4760#4777#0#PHP" expanded="true" />
-            <element signature="e#6207#6224#0#PHP" expanded="true" />
+            <element signature="e#117#151#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/documentation/index.html">
+    <entry file="file://$PROJECT_DIR$/src/Controller/FormController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="436" column="93" selection-start-line="436" selection-start-column="93" selection-end-line="436" selection-end-column="93" />
+        <state relative-caret-position="-1539">
+          <caret line="146" column="43" selection-start-line="146" selection-start-column="32" selection-end-line="146" selection-end-column="43" />
+          <folding>
+            <element signature="e#1950#1967#0#PHP" expanded="true" />
+            <element signature="e#2522#2544#0#PHP" expanded="true" />
+            <element signature="e#2133#2155#0#PHP" expanded="true" />
+            <element signature="e#3039#3061#0#PHP" expanded="true" />
+            <element signature="e#5688#5705#0#PHP" expanded="true" />
+            <element signature="e#7456#7473#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
