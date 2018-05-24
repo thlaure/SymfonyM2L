@@ -310,12 +310,13 @@
                                 <ul>
                                     <li class="lead">traitementFormulaire(Request) : ?Response</li>
                                     <li class="lead">creerFormulaire() : ?Form</li>
-                                    <li class="lead">enregistrerAtelierAvis(AtelierAvis)</li>
+                                    <li class="lead">enregistrerAtelierAvis(Atelier, Avis)</li>
                                     <li class="lead">recupQuantiteAvis(Atelier) : ?int</li>
                                     <li class="lead">verifExistenceAtelierAvis(Atelier, Avis) : ?bool</li>
-                                    <li class="lead">updateQuantite(AtelierAvis)</li>
+                                    <li class="lead">updateQuantite(Atelier, Avis)</li>
                                     <li class="lead">recupLAtelierAvis(Atelier, Avis) : ?AtelierAvis</li>
                                     <li class="lead">creerAtelierAvis(Atelier, Avis) : ?AtelierAvis</li>
+                                    <li class="lead">verifNbPlacesSuperieurQuantiteAvis(Atelier) : ?bool</li>
                                 </ul>
                             </div>
                             <div class="col-4"><p class="lead">Properties</p>
@@ -352,11 +353,12 @@
                         <div>
                             <p class="lead"><strong><i class="fa fa-check-square-o" aria-hidden="true"></i> enregistrerAtelierAvis()</strong></p>
                             <div class="border">
-                                <p>enregistrerAtelierAvis(AtelierAvis $atelierAvis)</p>
+                                <p>enregistrerAtelierAvis(Atelier $atelier, Avis $avis)</p>
                                 <p><em>Description :</em> Méthode permettant de faire persister en base de données l'avis d'un bénévole sur un atelier.</p>
                                 <p><em>Params :</em></p>
                                 <ul>
-                                    <li>AtelierAvis $atelierAvis</li>
+                                    <li>Atelier $atelier Atelier sur lequel l'avis est laissé</li>
+                                    <li>Avis $avis Avis qui est laissé sur l'atelier.</li>
                                 </ul>
                             </div>
                         </div>
@@ -368,7 +370,7 @@
                                 <p><em>Description :</em> Méthode qui va récupérer une liste d'objets AtelierAvis en fonction d'un atelier passé en paramètre, et parcourir cette liste pour additionner toutes les quantités.</p>
                                 <p><em>Params :</em></p>
                                 <ul>
-                                    <li>Atelier $atelier</li>
+                                    <li>Atelier $atelier Atelier sur lequel l'avis est laissé</li>
                                 </ul>
                             </div>
                         </div>
@@ -380,8 +382,8 @@
                                 <p><em>Description :</em> Méthode qui vérifie l'existence en base de données de l'AtelierAvis possédant l'Atelier et l'Avis passés en paramètres. Retourne Vrai si l'AtelierAvis existe.</p>
                                 <p><em>Params :</em></p>
                                 <ul>
-                                    <li>Atelier $atelier</li>
-                                    <li>Avis $avis</li>
+                                    <li>Atelier $atelier Atelier sur lequel l'avis est laissé</li>
+                                    <li>Avis $avis Avis qui est laissé sur l'atelier.</li>
                                 </ul>
                             </div>
                         </div>
@@ -389,11 +391,12 @@
                         <div>
                             <p class="lead"><strong><i class="fa fa-check-square-o" aria-hidden="true"></i> updateQuantite()</strong></p>
                             <div class="border">
-                                <p>updateQuantite(AtelierAvis $atelierAvis)</p>
+                                <p>updateQuantite(Atelier $atelier, Avis $avis)</p>
                                 <p><em>Description :</em> Méthode permettant de mettre à jour la quantité d'un AtelierAvis déjà existant.</p>
                                 <p><em>Params :</em></p>
                                 <ul>
-                                    <li>AtelierAvis $atelierAvis</li>
+                                    <li>Atelier $atelier Atelier sur lequel l'avis est laissé</li>
+                                    <li>Avis $avis Avis qui est laissé sur l'atelier.</li>
                                 </ul>
                             </div>
                         </div>
@@ -405,8 +408,8 @@
                                 <p><em>Description :</em> Récupère l'enregistrement de la table atelier_avis qui contient l'atelier et l'avis passés en paramètres.</p>
                                 <p><em>Params :</em></p>
                                 <ul>
-                                    <li>Atelier $atelier</li>
-                                    <li>Avis $avis</li>
+                                    <li>Atelier $atelier Atelier sur lequel l'avis est laissé</li>
+                                    <li>Avis $avis Avis qui est laissé sur l'atelier.</li>
                                 </ul>
                             </div>
                         </div>
@@ -418,8 +421,20 @@
                                 <p><em>Description :</em> Méthode permettant de créer un objet AtelierAvis..</p>
                                 <p><em>Params :</em></p>
                                 <ul>
-                                    <li>Atelier $atelier</li>
-                                    <li>Avis $avis</li>
+                                    <li>Atelier $atelier Atelier sur lequel l'avis est laissé</li>
+                                    <li>Avis $avis Avis qui est laissé sur l'atelier.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <br />
+                        <div>
+                            <p class="lead"><strong><i class="fa fa-check-square-o" aria-hidden="true"></i> verifNbPlacesSuperieurQuantiteAvis()</strong></p>
+                            <div class="border">
+                                <p>verifNbPlacesSuperieurQuantiteAvis(Atelier $atelier) : ?bool</p>
+                                <p><em>Description :</em> Méthode permettant de vérifier que le nombre de places maximum est bien supérieur à la quantité d'avis laissés sur l'atelier passé en paramètre. Retourne Vrai si le nombre de places maximum est supérieur à la quantité d'avis laissés, sinon retourne Faux.</p>
+                                <p><em>Params :</em></p>
+                                <ul>
+                                    <li>Atelier $atelier Atelier sur lequel l'avis est laissé</li>
                                 </ul>
                             </div>
                         </div>
