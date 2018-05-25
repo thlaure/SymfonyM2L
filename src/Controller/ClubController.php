@@ -40,6 +40,7 @@ class ClubController extends Controller
     public function traitementFormulaireClub(Request $request) : ?Response
     {
         $formulaire = $this->creerFormulaire();
+        $formulaireSuppr = $this->creerFormulaireSuppr();
 
         $formulaire->handleRequest($request);
         if ($request->isMethod('POST')) {
@@ -52,7 +53,8 @@ class ClubController extends Controller
                         'club.html.twig', array(
                             'textAlert' => 'Le club a été enregistré.',
                             'classAlert' => 'alert-success',
-                            'form' => $formulaire->createView()
+                            'form' => $formulaire->createView(),
+                            'formSuppr' => $formulaireSuppr->createView()
                         )
                     );
                 } else {
@@ -60,7 +62,8 @@ class ClubController extends Controller
                         'club.html.twig', array(
                             'textAlert' => 'Ce club existe déjà.',
                             'classAlert' => 'alert-danger',
-                            'form' => $formulaire->createView()
+                            'form' => $formulaire->createView(),
+                            'formSuppr' => $formulaireSuppr->createView()
                         )
                     );
                 }
@@ -74,12 +77,13 @@ class ClubController extends Controller
                 );
             }
 
-            
+
         }
 
         return $this->render(
             'club.html.twig', array(
-                'form' => $formulaire->createView()
+                'form' => $formulaire->createView(),
+                'formSuppr' => $formulaireSuppr->createView()
             )
         );
     }
@@ -98,16 +102,28 @@ class ClubController extends Controller
                 )
             )
             ->add(
+                'btnEnvoyer', SubmitType::class, array(
+                    'label' => 'Enregistrer'
+                )
+            )
+            ->getForm();
+    }
+
+    public function creerFormulaireSuppr()
+    {
+        return $this->createFormBuilder()
+            ->add(
                 'clubEntity', EntityType::class, array(
                     'class' => 'App\Entity\Club',
                     'multiple' => false,
                     'choice_label' => 'nomClub',
-                    'placeholder' => 'Sélectionnez le club à supprimer'
+                    'placeholder' => 'Sélectionnez le club à supprimer',
+                    'required' => false
                 )
             )
             ->add(
-                'btnEnvoyer', SubmitType::class, array(
-                    'label' => 'Enregistrer'
+                'btnSupprimer', SubmitType::class, array(
+                    'label' => 'Supprimer'
                 )
             )
             ->getForm();
