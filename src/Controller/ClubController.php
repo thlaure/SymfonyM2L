@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 use App\Entity\Club;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -72,6 +73,8 @@ class ClubController extends Controller
                     )
                 );
             }
+
+            
         }
 
         return $this->render(
@@ -92,6 +95,14 @@ class ClubController extends Controller
             ->add(
                 'nomClub', TextType::class, array(
                     'required' => true
+                )
+            )
+            ->add(
+                'clubEntity', EntityType::class, array(
+                    'class' => 'App\Entity\Club',
+                    'multiple' => false,
+                    'choice_label' => 'nomClub',
+                    'placeholder' => 'Sélectionnez le club à supprimer'
                 )
             )
             ->add(
@@ -148,5 +159,24 @@ class ClubController extends Controller
             )
         );
         return $result != null;
+    }
+
+    /**
+     * Méthode permettant de supprimer un club.
+     *
+     * @param string $nomClub Nom du club à supprimer.
+     *
+     * @return void
+     */
+    public function supprimerClub($nomClub)
+    {
+        $repository = $this->getDoctrine()->getRepository(Club::class);
+        $club = $repository->findOneBy(
+            array(
+                'nomClub' => $nomClub
+            )
+        );
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($club);
     }
 }
