@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Atelier;
 use App\Entity\AtelierAvis;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -31,6 +32,25 @@ class AtelierAvisRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, AtelierAvis::class);
     }
+
+    /**
+     * Requête permettant de récupérer la quantité totale
+     * d'avis sur l'atelier passé en paramètre.
+     *
+     * @param Atelier $atelier Atelier dont on veut la quantité totale d'avis.
+     *
+     * @return mixed
+     */
+    /*public function findByQuantite($atelier)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT SUM(aa.quantite) 
+                FROM AtelierAvis aa
+                WHERE atelier = :atelier'
+        )->setParameter('atelier', $atelier);
+        return $query->execute();
+    }*/
 
     /**
      * Méthode d'exemple.

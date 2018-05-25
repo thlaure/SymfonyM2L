@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrement de clubs{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <article class="icon">
+            <img src="{{ asset('images/Mdl.png') }}" alt="Icône de la M2L" />
+        </article>
+        <section><h1 class="title">Enregistrement de clubs</h1>
+            <br />
+            {{ form_start(form) }}
+                {% if textAlert is defined and classAlert is defined %}
+                    <div class="alert {{ classAlert }}" role="alert">{{ textAlert }}</div>
+                {% endif %}
+                <article class="col-lg-6">
+                    {{ form_widget(form.nomClub, {'attr': {'class': 'form-control'}}) }}
+                </article>
+                <br />
+                <article class="button">
+                    {{ form_widget(form.btnEnvoyer, {'attr': {'class': 'btn btn-primary'}}) }}
+                </article>
+            {{ form_end(form) }}
+        </section>
+    </div>
+{% endblock %}

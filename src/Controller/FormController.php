@@ -49,20 +49,8 @@ class FormController extends Controller
                 // Contrôles nécessaires avant d'enregistrer
                 // un avis en base de données.
                 $existe = $this->verifExistenceAtelierAvis($atelier, $avis);
-                if ($existe && $this->verifNbPlacesSuperieurQuantiteAvis($atelier)) {
+                if ($existe == true) {
                     $this->updateQuantite($atelier, $avis);
-                } elseif (!$this->verifNbPlacesSuperieurQuantiteAvis($atelier)) {
-                    return $this->render(
-                        'error.html.twig',
-                        array(
-                            'nbAvis' => 0,
-                            'nomAtelier' => '',
-                            'textAlert' => 'La quantité d\'avis laissés sur 
-                                l\'atelier excède le nombre disponible de places.',
-                            'classAlert' => 'alert-danger',
-                            'form' => $formulaire->createView()
-                        )
-                    );
                 } else {
                     $this->enregistrerAtelierAvis($atelier, $avis);
                 }
@@ -280,10 +268,12 @@ class FormController extends Controller
      *
      * @param Atelier $atelier Atelier sur lequel l'avis est laissé.
      *
-     * @return bool|null
+     * @return bool|Response
      */
-    public function verifNbPlacesSuperieurQuantiteAvis($atelier) : ?bool
+    /*public function verifQuantiteAvisInferieureNbPlaces($atelier)
     {
-        return $atelier->getNbPlacesMaxi() < $this->recupQuantiteAvis($atelier);
-    }
+        $nbPlaces = $atelier->getNbPlacesMaxi();
+        $quantiteAvis = (int)$this->getDoctrine()->getRepository(Atelier::class)->findByQuantiteTotale($atelier)[0][1];
+        return $quantiteAvis < $nbPlaces;
+    }*/
 }
