@@ -49,8 +49,8 @@ class ClubController extends Controller
                     $this->enregistrerClub($nomClub);
                     return $this->render(
                         'club.html.twig', array(
-                            'text-alert' => 'Le club a été enregistré.',
-                            'class-alert' => 'alert-success',
+                            'textAlert' => 'Le club a été enregistré.',
+                            'classAlert' => 'alert-success',
                             'form' => $formulaire->createView()
                         )
                     );

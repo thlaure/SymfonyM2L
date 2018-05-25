@@ -13,12 +13,12 @@
                 {% if textAlert is defined and classAlert is defined %}
                     <div class="alert {{ classAlert }}" role="alert">{{ textAlert }}</div>
                 {% endif %}
-                <article class="col-lg-6">
+                <article class="col-lg-6"><h3>Saisir le nom du club :</h3>
                     {{ form_widget(form.nomClub, {'attr': {'class': 'form-control'}}) }}
                 </article>
                 <br />
                 <article class="button">
-                    {{ form_widget(form.btnEnvoyer, {'attr': {'class': 'btn btn-primary'}}) }}
+                    {{ form_widget(form.btnEnvoyer, {'attr': {'class': 'btn btn-primary btn-club'}}) }}
                 </article>
             {{ form_end(form) }}
         </section>
